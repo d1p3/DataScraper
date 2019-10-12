@@ -91,6 +91,7 @@ def Scrape(links):
                     except AttributeError:
                         ingredientsList.append("N/A")
             del ingredientsList[-1]
+            
             #Extracting Nutrients
             try:
                 calories = list(map(float,re.findall(r'\d+.\d+|\d+', receipe.find('span', itemprop = 'calories').get_text().strip())))
@@ -122,7 +123,6 @@ def Scrape(links):
                 title = receipe.find('h1', class_ = 'recipe-summary__h1').get_text().strip()
             except AttributeError:
                 receipeDirections.append("****No Title******")
-        print(ingredientsList)
         if(len(prepTime)>=3):
             receipeObject = {
                 "receipeTitle": title,
@@ -153,13 +153,6 @@ def Scrape(links):
             "sodium": sodium,
             "ingredients": ingredientsList,
             }
-            
         writeToFile('receipeData',receipeObject)
-      
-#print(receipeDirections)
-#print(prepTime)
-#print(calories,fat,carbohydrate,protein,cholesterol,sodium)
-#print(title)
-           
-#readFile("linkDoc.json")
+
 GetPageLink()
